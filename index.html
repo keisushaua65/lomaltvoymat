@@ -57,18 +57,52 @@
     align-items: center;
   }
 
-  .social-icons a {
-    width: 44px;
-    height: 44px;
+  .social-icon-wrap {
+    position: relative;
+    width: 48px;
+    height: 48px;
+  }
+
+  .social-icon-wrap svg.ring {
+    position: absolute;
+    top: 0; left: 0;
+    width: 48px;
+    height: 48px;
+    transform: rotate(-90deg);
+    pointer-events: none;
+  }
+
+  .social-icon-wrap svg.ring circle.track {
+    fill: none;
+    stroke: #1a2030;
+    stroke-width: 4;
+  }
+
+  .social-icon-wrap svg.ring circle.progress {
+    fill: none;
+    stroke: #5b7fa6;
+    stroke-width: 4;
+    stroke-linecap: butt;
+    transition: stroke-dashoffset 0.2s, stroke 0.2s;
+  }
+
+  .social-icon-wrap svg.ring circle.progress.full {
+    stroke: #e05555;
+  }
+
+  .social-icon-wrap a {
+    position: absolute;
+    top: 4px; left: 4px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background-color: #232b3e;
-    border: 4px solid #1a2030;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
     color: #fff;
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .divider {
@@ -172,10 +206,22 @@
     </div>
   </div>
   <div class="social-icons">
-    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+    <div class="social-icon-wrap" data-limit="241">
+      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+    </div>
+    <div class="social-icon-wrap" data-limit="63207">
+      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+    </div>
+    <div class="social-icon-wrap" data-limit="2201">
+      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="social-icon-wrap" data-limit="1301">
+      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
   </div>
 </div>
 
@@ -226,10 +272,33 @@
   const wordCount = document.getElementById('wordCount');
   const charCount = document.getElementById('charCount');
 
+  const rings = document.querySelectorAll('.social-icon-wrap');
+  const CIRCUMFERENCE = 2 * Math.PI * 22; // r=22
+
+  // инициализация — все кольца пустые
+  rings.forEach(wrap => {
+    const circle = wrap.querySelector('circle.progress');
+    circle.style.strokeDasharray = CIRCUMFERENCE;
+    circle.style.strokeDashoffset = CIRCUMFERENCE;
+  });
+
   editor.addEventListener('input', () => {
     const text = editor.value;
-    charCount.textContent = text.length;
+    const len = text.length;
+    charCount.textContent = len;
     wordCount.textContent = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+
+    rings.forEach(wrap => {
+      const limit = parseInt(wrap.dataset.limit);
+      const circle = wrap.querySelector('circle.progress');
+      const ratio = Math.min(len / limit, 1);
+      circle.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
+      if (ratio >= 1) {
+        circle.classList.add('full');
+      } else {
+        circle.classList.remove('full');
+      }
+    });
   });
 
   const kbIcon = document.getElementById('kbIcon');
