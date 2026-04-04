@@ -38,36 +38,37 @@
   }
 
   .stat-label {
-    font-size: 11px;
+    font-size: 13px;
     color: #ffffff;
-    font-weight: 300;
+    font-weight: 600;
     letter-spacing: 1px;
   }
 
   .stat-value {
-    font-size: 20px;
-    font-weight: 200;
+    font-size: 13px;
+    font-weight: 600;
     color: #ffffff;
-    line-height: 1.1;
+    line-height: 1.2;
   }
 
   .social-icons {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
+    margin-left: auto;
   }
 
   .social-icon-wrap {
     position: relative;
-    width: 52px;
-    height: 52px;
+    width: 44px;
+    height: 44px;
   }
 
   .social-icon-wrap svg.ring {
     position: absolute;
     top: 0; left: 0;
-    width: 52px;
-    height: 52px;
+    width: 44px;
+    height: 44px;
     transform: rotate(-90deg);
     pointer-events: none;
   }
@@ -75,13 +76,13 @@
   .social-icon-wrap svg.ring circle.track {
     fill: none;
     stroke: #1a2030;
-    stroke-width: 8;
+    stroke-width: 5;
   }
 
   .social-icon-wrap svg.ring circle.progress {
     fill: none;
     stroke: #5b7fa6;
-    stroke-width: 8;
+    stroke-width: 5;
     stroke-linecap: butt;
     transition: stroke-dashoffset 0.2s, stroke 0.2s;
   }
@@ -92,9 +93,9 @@
 
   .social-icon-wrap a {
     position: absolute;
-    top: 6px; left: 6px;
-    width: 40px;
-    height: 40px;
+    top: 5px; left: 5px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background-color: #232b3e;
     display: flex;
@@ -102,7 +103,7 @@
     justify-content: center;
     text-decoration: none;
     color: #fff;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .divider {
@@ -210,19 +211,19 @@
   </div>
   <div class="social-icons">
     <div class="social-icon-wrap" data-limit="241">
-      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
       <a href="#"><i class="fa-brands fa-twitter"></i></a>
     </div>
     <div class="social-icon-wrap" data-limit="63207">
-      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
       <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
     </div>
     <div class="social-icon-wrap" data-limit="2201">
-      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
       <a href="#"><i class="fa-brands fa-instagram"></i></a>
     </div>
     <div class="social-icon-wrap" data-limit="1301">
-      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
       <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
     </div>
   </div>
@@ -249,7 +250,7 @@
   const charCount = document.getElementById('charCount');
 
   const rings = document.querySelectorAll('.social-icon-wrap');
-  const CIRCUMFERENCE = 2 * Math.PI * 22;
+  const CIRCUMFERENCE = 2 * Math.PI * 19;
 
   rings.forEach(wrap => {
     const circle = wrap.querySelector('circle.progress');
