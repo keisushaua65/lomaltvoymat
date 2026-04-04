@@ -38,14 +38,14 @@
   }
 
   .stat-label {
-    font-size: 13px;
+    font-size: 11px;
     color: #ffffff;
-    font-weight: 400;
+    font-weight: 300;
     letter-spacing: 1px;
   }
 
   .stat-value {
-    font-size: 32px;
+    font-size: 20px;
     font-weight: 200;
     color: #ffffff;
     line-height: 1.1;
@@ -73,7 +73,7 @@
 
   .divider {
     height: 1px;
-    background-color: #3a4560;
+    background-color: #252d3f;
   }
 
   .editor-area {
@@ -142,12 +142,19 @@
     height: 14px;
     fill: #6b7590;
     stroke: #6b7590;
-    transition: fill 0.2s, stroke 0.2s;
+    transition: fill 0.15s, stroke 0.15s;
   }
 
   .keyboard-icon.active svg {
     fill: #4a9eff;
     stroke: #4a9eff;
+  }
+
+  /* голубой фон под иконкой когда клавиатура открыта */
+  .keyboard-icon.active {
+    background-color: #1e4080;
+    border-radius: 5px;
+    padding: 3px 5px;
   }
 </style>
 </head>
