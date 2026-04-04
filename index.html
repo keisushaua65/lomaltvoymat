@@ -184,11 +184,10 @@
     stroke: #4a9eff;
   }
 
-  /* голубой фон под иконкой когда клавиатура открыта */
   .keyboard-icon.active {
-    background-color: #1e4080;
-    border-radius: 5px;
-    padding: 3px 5px;
+    background-color: transparent;
+    border-radius: 0;
+    padding: 0;
   }
 </style>
 </head>
@@ -273,13 +272,12 @@
   const charCount = document.getElementById('charCount');
 
   const rings = document.querySelectorAll('.social-icon-wrap');
-  const CIRCUMFERENCE = 2 * Math.PI * 22; // r=22
+  const CIRCUMFERENCE = 2 * Math.PI * 22;
 
-  // инициализация — все кольца пустые
   rings.forEach(wrap => {
     const circle = wrap.querySelector('circle.progress');
-    circle.style.strokeDasharray = CIRCUMFERENCE;
-    circle.style.strokeDashoffset = CIRCUMFERENCE;
+    circle.setAttribute('stroke-dasharray', CIRCUMFERENCE);
+    circle.setAttribute('stroke-dashoffset', CIRCUMFERENCE);
   });
 
   editor.addEventListener('input', () => {
@@ -292,7 +290,7 @@
       const limit = parseInt(wrap.dataset.limit);
       const circle = wrap.querySelector('circle.progress');
       const ratio = Math.min(len / limit, 1);
-      circle.style.strokeDashoffset = CIRCUMFERENCE * (1 - ratio);
+      circle.setAttribute('stroke-dashoffset', CIRCUMFERENCE * (1 - ratio));
       if (ratio >= 1) {
         circle.classList.add('full');
       } else {
