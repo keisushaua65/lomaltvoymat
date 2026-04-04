@@ -59,15 +59,15 @@
 
   .social-icon-wrap {
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
   }
 
   .social-icon-wrap svg.ring {
     position: absolute;
     top: 0; left: 0;
-    width: 48px;
-    height: 48px;
+    width: 52px;
+    height: 52px;
     transform: rotate(-90deg);
     pointer-events: none;
   }
@@ -92,7 +92,7 @@
 
   .social-icon-wrap a {
     position: absolute;
-    top: 4px; left: 4px;
+    top: 6px; left: 6px;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -172,15 +172,25 @@
   }
 
   .keyboard-icon svg {
-    width: 18px;
-    height: 14px;
-    fill: #6b7590;
-    stroke: #6b7590;
-    transition: fill 0.15s, stroke 0.15s;
+    transition: all 0.15s;
   }
 
-  .keyboard-icon.active svg {
+  .keyboard-icon svg rect {
+    fill: #6b7590;
+    transition: fill 0.15s;
+  }
+
+  .keyboard-icon svg rect[fill="none"] {
+    fill: none;
+    stroke: #6b7590;
+  }
+
+  .keyboard-icon.active svg rect {
     fill: #4a9eff;
+  }
+
+  .keyboard-icon.active svg rect[fill="none"] {
+    fill: none;
     stroke: #4a9eff;
   }
 </style>
@@ -200,19 +210,19 @@
   </div>
   <div class="social-icons">
     <div class="social-icon-wrap" data-limit="241">
-      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
       <a href="#"><i class="fa-brands fa-twitter"></i></a>
     </div>
     <div class="social-icon-wrap" data-limit="63207">
-      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
       <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
     </div>
     <div class="social-icon-wrap" data-limit="2201">
-      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
       <a href="#"><i class="fa-brands fa-instagram"></i></a>
     </div>
     <div class="social-icon-wrap" data-limit="1301">
-      <svg class="ring" viewBox="0 0 48 48"><circle class="track" cx="24" cy="24" r="22"/><circle class="progress" cx="24" cy="24" r="22"/></svg>
+      <svg class="ring" viewBox="0 0 52 52"><circle class="track" cx="26" cy="26" r="22"/><circle class="progress" cx="26" cy="26" r="22"/></svg>
       <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
     </div>
   </div>
@@ -229,33 +239,32 @@
   <button class="btn-copy" onclick="copyText()">Copy</button>
   <button class="btn-paste" onclick="pasteText()">Paste</button>
   <span class="keyboard-icon" id="kbIcon">
-    <!-- иконка клавиатуры точь-в-точь: прямоугольник с рядами клавиш и спейсбаром -->
-    <svg viewBox="0 0 36 24" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 40 28" width="32" height="22" xmlns="http://www.w3.org/2000/svg">
       <!-- корпус -->
-      <rect x="0.5" y="0.5" width="35" height="23" rx="3" ry="3" fill="none" stroke-width="1.5" stroke="inherit"/>
-      <!-- ряд 1: 7 клавиш -->
-      <rect x="3" y="3" width="4" height="3" rx="0.8"/>
-      <rect x="8" y="3" width="4" height="3" rx="0.8"/>
-      <rect x="13" y="3" width="4" height="3" rx="0.8"/>
-      <rect x="18" y="3" width="4" height="3" rx="0.8"/>
-      <rect x="23" y="3" width="4" height="3" rx="0.8"/>
-      <rect x="28" y="3" width="5" height="3" rx="0.8"/>
-      <!-- ряд 2: 6 клавиш -->
-      <rect x="3" y="8" width="4" height="3" rx="0.8"/>
-      <rect x="8" y="8" width="4" height="3" rx="0.8"/>
-      <rect x="13" y="8" width="4" height="3" rx="0.8"/>
-      <rect x="18" y="8" width="4" height="3" rx="0.8"/>
-      <rect x="23" y="8" width="4" height="3" rx="0.8"/>
-      <!-- enter -->
-      <rect x="28" y="8" width="5" height="8" rx="0.8"/>
-      <!-- ряд 3: 5 клавиш -->
-      <rect x="3" y="13" width="5" height="3" rx="0.8"/>
-      <rect x="9" y="13" width="4" height="3" rx="0.8"/>
-      <rect x="14" y="13" width="4" height="3" rx="0.8"/>
-      <rect x="19" y="13" width="4" height="3" rx="0.8"/>
-      <rect x="24" y="13" width="3" height="3" rx="0.8"/>
-      <!-- спейсбар -->
-      <rect x="8" y="18" width="20" height="3" rx="0.8"/>
+      <rect x="1" y="1" width="38" height="26" rx="3" ry="3" fill="none" stroke="#6b7590" stroke-width="1.8"/>
+      <!-- ряд 1: 9 маленьких клавиш -->
+      <rect x="4" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="8.2" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="12.4" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="16.6" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="20.8" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="25" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="29.2" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <!-- Enter справа (высокий) -->
+      <rect x="33.5" y="4.5" width="3" height="7.5" rx="0.5" fill="#6b7590"/>
+      <!-- ряд 2: 7 клавиш -->
+      <rect x="4" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="8.2" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="12.4" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="16.6" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="20.8" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="25" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="29.2" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <!-- ряд 3: левая клавиша + спейсбар + правая -->
+      <rect x="4" y="13.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="8.5" y="13.5" width="19" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="29.2" y="13.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
+      <rect x="33.5" y="13.5" width="3" height="2.5" rx="0.5" fill="#6b7590"/>
     </svg>
   </span>
 </div>
