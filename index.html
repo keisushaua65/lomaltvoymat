@@ -75,13 +75,13 @@
   .social-icon-wrap svg.ring circle.track {
     fill: none;
     stroke: #1a2030;
-    stroke-width: 4;
+    stroke-width: 8;
   }
 
   .social-icon-wrap svg.ring circle.progress {
     fill: none;
     stroke: #5b7fa6;
-    stroke-width: 4;
+    stroke-width: 8;
     stroke-linecap: butt;
     transition: stroke-dashoffset 0.2s, stroke 0.2s;
   }
@@ -182,12 +182,6 @@
   .keyboard-icon.active svg {
     fill: #4a9eff;
     stroke: #4a9eff;
-  }
-
-  .keyboard-icon.active {
-    background-color: transparent;
-    border-radius: 0;
-    padding: 0;
   }
 </style>
 </head>
@@ -303,9 +297,6 @@
 
   editor.addEventListener('focus', () => kbIcon.classList.add('active'));
   editor.addEventListener('blur', () => kbIcon.classList.remove('active'));
-
-  // SVG stroke наследуем через currentColor
-  kbIcon.querySelector('svg').style.stroke = 'currentColor';
 
   // Поднимаем интерфейс когда появляется клавиатура
   const bottombar = document.querySelector('.bottombar');
