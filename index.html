@@ -23,7 +23,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px 10px 14px;
-    background-color: #2d3548;
+    background-color: #252d3e;
   }
 
   .stats {
@@ -47,7 +47,7 @@
   }
 
   .stat-value {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: 200;
     color: #ffffff;
     line-height: 1.0;
@@ -145,7 +145,7 @@
     align-items: center;
     padding: 14px 24px 22px 24px;
     border-top: 1px solid #2a3347;
-    background-color: #2d3548;
+    background-color: #252d3e;
   }
 
   .btn-delete {
@@ -219,7 +219,7 @@
     </div>
     <div class="social-icon-wrap" data-limit="63207">
       <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
-      <a href="#" onclick="editor.value='артем сын шалавы LCVR'; editor.dispatchEvent(new Event('input')); return false;"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#" onclick="editor.value='артем сын шалавы'; editor.dispatchEvent(new Event('input')); return false;"><i class="fa-brands fa-facebook-f"></i></a>
     </div>
     <div class="social-icon-wrap" data-limit="2201">
       <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
@@ -227,8 +227,25 @@
     </div>
     <div class="social-icon-wrap" data-limit="1301">
       <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
-      <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="#" id="linkedinBtn"><i class="fa-brands fa-linkedin-in"></i></a>
     </div>
+  </div>
+</div>
+
+<!-- Модалка автотайпера -->
+<div id="typeModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:100; align-items:center; justify-content:center;">
+  <div style="background:#252d3e; border-radius:14px; padding:20px; width:88%; max-width:360px;">
+    <div style="font-size:14px; font-weight:600; margin-bottom:12px; color:#fff;">Автотайпер</div>
+    <textarea id="typeText" placeholder="Введи текст..." style="width:100%; height:100px; background:#3a4459; border:none; border-radius:8px; padding:10px; color:#fff; font-size:14px; resize:none; outline:none;"></textarea>
+    <div style="display:flex; align-items:center; gap:10px; margin-top:12px;">
+      <label style="font-size:13px; color:#aaa;">WPM</label>
+      <input id="wpmInput" type="number" value="60" min="10" max="600" style="width:70px; background:#3a4459; border:none; border-radius:6px; padding:6px 10px; color:#fff; font-size:14px; outline:none;">
+    </div>
+    <div style="display:flex; gap:10px; margin-top:16px;">
+      <button onclick="startTyping()" style="flex:1; background:#4a9eff; border:none; border-radius:8px; padding:10px; color:#fff; font-size:15px; font-weight:600; cursor:pointer;">Старт</button>
+      <button onclick="closeModal()" style="flex:1; background:#3a4459; border:none; border-radius:8px; padding:10px; color:#aaa; font-size:15px; cursor:pointer;">Отмена</button>
+    </div>
+    <div id="countdown" style="text-align:center; font-size:28px; font-weight:300; color:#4a9eff; margin-top:10px; display:none;"></div>
   </div>
 </div>
 
@@ -280,7 +297,57 @@
     });
   });
 
-  const kbIcon = document.getElementById('kbIcon');
+  // LinkedIn двойной тап — открыть автотайпер
+  let lastTap = 0;
+  document.getElementById('linkedinBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    const now = Date.now();
+    if (now - lastTap < 350) {
+      document.getElementById('typeModal').style.display = 'flex';
+    }
+    lastTap = now;
+  });
+
+  function closeModal() {
+    document.getElementById('typeModal').style.display = 'none';
+    clearTimeout(window._typeTimer);
+    clearInterval(window._typeInterval);
+    document.getElementById('countdown').style.display = 'none';
+  }
+
+  function startTyping() {
+    const text = document.getElementById('typeText').value;
+    const wpm = parseInt(document.getElementById('wpmInput').value) || 60;
+    if (!text) return;
+
+    const msPerChar = (60 / (wpm * 5)) * 1000; // средняя длина слова 5 символов
+    const countdown = document.getElementById('countdown');
+    countdown.style.display = 'block';
+
+    let count = 3;
+    countdown.textContent = count;
+
+    const cd = setInterval(() => {
+      count--;
+      if (count <= 0) {
+        clearInterval(cd);
+        countdown.style.display = 'none';
+        document.getElementById('typeModal').style.display = 'none';
+        editor.value = '';
+        editor.focus();
+
+        let i = 0;
+        window._typeInterval = setInterval(() => {
+          if (i >= text.length) { clearInterval(window._typeInterval); return; }
+          editor.value += text[i];
+          editor.dispatchEvent(new Event('input'));
+          i++;
+        }, msPerChar);
+      } else {
+        countdown.textContent = count;
+      }
+    }, 1000);
+  }
   const kbImg = document.getElementById('kbImg');
 
   editor.addEventListener('focus', () => { kbIcon.classList.add('active'); kbImg.src = 'on.jpg'; });
