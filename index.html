@@ -239,33 +239,7 @@
   <button class="btn-copy" onclick="copyText()">Copy</button>
   <button class="btn-paste" onclick="pasteText()">Paste</button>
   <span class="keyboard-icon" id="kbIcon">
-    <svg viewBox="0 0 40 28" width="32" height="22" xmlns="http://www.w3.org/2000/svg">
-      <!-- корпус -->
-      <rect x="1" y="1" width="38" height="26" rx="3" ry="3" fill="none" stroke="#6b7590" stroke-width="1.8"/>
-      <!-- ряд 1: 9 маленьких клавиш -->
-      <rect x="4" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="8.2" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="12.4" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="16.6" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="20.8" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="25" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="29.2" y="4.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <!-- Enter справа (высокий) -->
-      <rect x="33.5" y="4.5" width="3" height="7.5" rx="0.5" fill="#6b7590"/>
-      <!-- ряд 2: 7 клавиш -->
-      <rect x="4" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="8.2" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="12.4" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="16.6" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="20.8" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="25" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="29.2" y="9" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <!-- ряд 3: левая клавиша + спейсбар + правая -->
-      <rect x="4" y="13.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="8.5" y="13.5" width="19" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="29.2" y="13.5" width="3.2" height="2.5" rx="0.5" fill="#6b7590"/>
-      <rect x="33.5" y="13.5" width="3" height="2.5" rx="0.5" fill="#6b7590"/>
-    </svg>
+    <img id="kbImg" src="off.jpg" width="32" height="22" style="display:block;">
   </span>
 </div>
 
@@ -303,9 +277,10 @@
   });
 
   const kbIcon = document.getElementById('kbIcon');
+  const kbImg = document.getElementById('kbImg');
 
-  editor.addEventListener('focus', () => kbIcon.classList.add('active'));
-  editor.addEventListener('blur', () => kbIcon.classList.remove('active'));
+  editor.addEventListener('focus', () => { kbIcon.classList.add('active'); kbImg.src = 'on.jpg'; });
+  editor.addEventListener('blur', () => { kbIcon.classList.remove('active'); kbImg.src = 'off.jpg'; });
 
   // Поднимаем интерфейс когда появляется клавиатура
   const bottombar = document.querySelector('.bottombar');
