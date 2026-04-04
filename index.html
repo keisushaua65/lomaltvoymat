@@ -140,8 +140,6 @@
 
   .bottombar {
     display: flex;
-  .bottombar {
-    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 20px 12px 20px;
@@ -167,7 +165,9 @@
     cursor: pointer;
     font-family: inherit;
     font-weight: 400;
-  }keyboard-icon {
+  }
+
+  .keyboard-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -273,7 +273,6 @@
   editor.addEventListener('focus', () => { kbIcon.classList.add('active'); kbImg.src = 'on.jpg'; });
   editor.addEventListener('blur', () => { kbIcon.classList.remove('active'); kbImg.src = 'off.jpg'; });
 
-  // LinkedIn двойной тап
   let lastTap = 0;
   document.getElementById('linkedinBtn').addEventListener('click', (e) => {
     e.preventDefault();
