@@ -2,200 +2,188 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
-<!-- FIX viewport -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-
 <title>Word Counter</title>
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  background-color: #2d3548;
-  color: #fff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  height: 100%;
-  overflow: hidden;
+  body {
+    background-color: #2d3548;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    height: 100%;
+    overflow: hidden;
+  }
 
-  /* FIX статус бара */
-  padding-top: env(safe-area-inset-top);
-  background-color: #252d3e;
-}
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 14px 12px 14px;
+    padding-top: max(14px, env(safe-area-inset-top));
+    background-color: #1a2030;
+  }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  .stats {
+    display: flex;
+    gap: 20px;
+  }
 
-  /* FIX статус бара */
-  padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
 
-  background-color: #252d3e;
-}
+  .stat-label {
+    font-size: 11px;
+    color: #ffffff;
+    font-weight: 500;
+    letter-spacing: 0.8px;
+    font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif;
+  }
 
-.stats {
-  display: flex;
-  gap: 20px;
-}
+  .stat-value {
+    font-size: 16px;
+    font-weight: 300;
+    color: #ffffff;
+    line-height: 1.0;
+    font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif;
+  }
 
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
+  .social-icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-left: auto;
+  }
 
-.stat-label {
-  font-size: 11px;
-  color: #ffffff;
-  font-weight: 500;
-  letter-spacing: 0.8px;
-  font-family: -apple-system, 'SF Pro Text', BlinkMacSystemFont, sans-serif;
-}
+  .social-icon-wrap {
+    position: relative;
+    width: 44px;
+    height: 44px;
+  }
 
-.stat-value {
-  font-size: 16px;
-  font-weight: 300;
-  color: #ffffff;
-  line-height: 1.0;
-  font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, sans-serif;
-}
+  .social-icon-wrap svg.ring {
+    position: absolute;
+    top: 0; left: 0;
+    width: 44px;
+    height: 44px;
+    transform: rotate(-90deg);
+    pointer-events: none;
+  }
 
-.social-icons {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  margin-left: auto;
-}
+  .social-icon-wrap svg.ring circle.track {
+    fill: none;
+    stroke: #2a3347;
+    stroke-width: 5;
+  }
 
-.social-icon-wrap {
-  position: relative;
-  width: 44px;
-  height: 44px;
-}
+  .social-icon-wrap svg.ring circle.progress {
+    fill: none;
+    stroke: #5b7fa6;
+    stroke-width: 5;
+    stroke-linecap: butt;
+    transition: stroke-dashoffset 0.2s, stroke 0.2s;
+  }
 
-.social-icon-wrap svg.ring {
-  position: absolute;
-  top: 0; left: 0;
-  width: 44px;
-  height: 44px;
-  transform: rotate(-90deg);
-  pointer-events: none;
-}
+  .social-icon-wrap svg.ring circle.progress.full {
+    stroke: #e05555;
+  }
 
-.social-icon-wrap svg.ring circle.track {
-  fill: none;
-  stroke: #1a2030;
-  stroke-width: 5;
-}
+  .social-icon-wrap a {
+    position: absolute;
+    top: 5px; left: 5px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #1a2030;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+  }
 
-.social-icon-wrap svg.ring circle.progress {
-  fill: none;
-  stroke: #5b7fa6;
-  stroke-width: 5;
-  stroke-linecap: butt;
-  transition: stroke-dashoffset 0.2s, stroke 0.2s;
-}
+  .divider {
+    height: 1px;
+    background-color: #2a3347;
+  }
 
-.social-icon-wrap svg.ring circle.progress.full {
-  stroke: #e05555;
-}
+  .editor-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #3a4459;
+    overflow: hidden;
+  }
 
-.social-icon-wrap a {
-  position: absolute;
-  top: 5px; left: 5px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background-color: #232b3e;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #fff;
-  font-size: 14px;
-}
+  textarea {
+    flex: 1;
+    width: 100%;
+    padding: 14px 16px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.6;
+    resize: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    caret-color: #1a7fff;
+    overflow-y: auto;
+  }
 
-.divider {
-  height: 1px;
-  background-color: #2a3347;
-}
+  textarea::placeholder {
+    color: #7a8299;
+  }
 
-.editor-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: #3a4459;
-  overflow: hidden;
-}
+  .bottombar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 20px 12px 20px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+    border-top: 1px solid #2a3347;
+    background-color: #1a2030;
+  }
 
-textarea {
-  flex: 1;
-  width: 100%;
-  padding: 14px 16px;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #ffffff;
-  font-size: 14px;
-  line-height: 1.6;
-  resize: none;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  caret-color: #1a7fff;
-  overflow-y: auto;
-}
+  .btn-delete {
+    color: #d9534f;
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 400;
+  }
 
-textarea::placeholder {
-  color: #7a8299;
-}
+  .btn-copy, .btn-paste {
+    color: #c8cdd8;
+    font-size: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 400;
+  }
 
-.bottombar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 20px 12px 20px;
-  border-top: 1px solid #2a3347;
-  background-color: #252d3e;
-}
-
-.btn-delete {
-  color: #d9534f;
-  font-size: 14px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 400;
-}
-
-.btn-copy, .btn-paste {
-  color: #c8cdd8;
-  font-size: 14px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 400;
-}
-
-.keyboard-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
+  .keyboard-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
 </style>
 </head>
-
 <body>
 
 <div class="topbar">
@@ -209,7 +197,6 @@ textarea::placeholder {
       <span class="stat-value" id="charCount">0</span>
     </div>
   </div>
-
   <div class="social-icons">
     <div class="social-icon-wrap" data-limit="241">
       <svg class="ring" viewBox="0 0 44 44"><circle class="track" cx="22" cy="22" r="19"/><circle class="progress" cx="22" cy="22" r="19"/></svg>
@@ -230,9 +217,7 @@ textarea::placeholder {
   </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- МОДАЛКА (НЕ ТРОНУТА) -->
+<!-- Модалка автотайпера -->
 <div id="typeModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:100; align-items:center; justify-content:center;">
   <div style="background:#252d3e; border-radius:14px; padding:20px; width:88%; max-width:360px;">
     <div style="font-size:14px; font-weight:600; margin-bottom:12px; color:#fff;">Автотайпер</div>
@@ -249,9 +234,10 @@ textarea::placeholder {
   </div>
 </div>
 
+<div class="divider"></div>
+
 <div class="editor-area">
-  <!-- Т9 ВКЛЮЧЕН -->
-  <textarea id="editor" placeholder="Enter text here" autocomplete="on" autocorrect="on" autocapitalize="sentences" spellcheck="true"></textarea>
+  <textarea id="editor" placeholder="Enter text here" autocomplete="on" autocorrect="on" autocapitalize="sentences" spellcheck="true" inputmode="text"></textarea>
 </div>
 
 <div class="bottombar">
@@ -259,127 +245,116 @@ textarea::placeholder {
   <button class="btn-copy" onclick="copyText()">Copy</button>
   <button class="btn-paste" onclick="pasteText()">Paste</button>
   <span class="keyboard-icon" id="kbIcon">
-    <img id="kbImg" src="off.jpg" width="24" height="17">
+    <img id="kbImg" src="off.jpg" width="24" height="17" style="display:block;">
   </span>
 </div>
 
 <script>
-const editor = document.getElementById('editor');
-const wordCount = document.getElementById('wordCount');
-const charCount = document.getElementById('charCount');
-const kbIcon = document.getElementById('kbIcon');
-const kbImg = document.getElementById('kbImg');
+  const editor = document.getElementById('editor');
+  const wordCount = document.getElementById('wordCount');
+  const charCount = document.getElementById('charCount');
+  const kbIcon = document.getElementById('kbIcon');
+  const kbImg = document.getElementById('kbImg');
 
-const rings = document.querySelectorAll('.social-icon-wrap');
-const CIRCUMFERENCE = 2 * Math.PI * 19;
-
-rings.forEach(wrap => {
-  const circle = wrap.querySelector('circle.progress');
-  circle.setAttribute('stroke-dasharray', CIRCUMFERENCE);
-  circle.setAttribute('stroke-dashoffset', CIRCUMFERENCE);
-});
-
-editor.addEventListener('input', () => {
-  const text = editor.value;
-  const len = text.length;
-  charCount.textContent = len;
-  wordCount.textContent = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+  const rings = document.querySelectorAll('.social-icon-wrap');
+  const CIRCUMFERENCE = 2 * Math.PI * 19;
 
   rings.forEach(wrap => {
-    const limit = parseInt(wrap.dataset.limit);
     const circle = wrap.querySelector('circle.progress');
-    const ratio = Math.min(len / limit, 1);
-    circle.setAttribute('stroke-dashoffset', CIRCUMFERENCE * (1 - ratio));
-    circle.classList.toggle('full', ratio >= 1);
+    circle.setAttribute('stroke-dasharray', CIRCUMFERENCE);
+    circle.setAttribute('stroke-dashoffset', CIRCUMFERENCE);
   });
-});
 
-editor.addEventListener('focus', () => { kbIcon.classList.add('active'); kbImg.src = 'on.jpg'; });
-editor.addEventListener('blur', () => { kbIcon.classList.remove('active'); kbImg.src = 'off.jpg'; });
+  editor.addEventListener('input', () => {
+    const text = editor.value;
+    const len = text.length;
+    charCount.textContent = len;
+    wordCount.textContent = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+    rings.forEach(wrap => {
+      const limit = parseInt(wrap.dataset.limit);
+      const circle = wrap.querySelector('circle.progress');
+      const ratio = Math.min(len / limit, 1);
+      circle.setAttribute('stroke-dashoffset', CIRCUMFERENCE * (1 - ratio));
+      circle.classList.toggle('full', ratio >= 1);
+    });
+  });
 
-let lastTap = 0;
-document.getElementById('linkedinBtn').addEventListener('click', (e) => {
-  e.preventDefault();
-  const now = Date.now();
-  if (now - lastTap < 350) document.getElementById('typeModal').style.display = 'flex';
-  lastTap = now;
-});
+  editor.addEventListener('focus', () => { kbIcon.classList.add('active'); kbImg.src = 'on.jpg'; });
+  editor.addEventListener('blur', () => { kbIcon.classList.remove('active'); kbImg.src = 'off.jpg'; });
 
-function closeModal() {
-  document.getElementById('typeModal').style.display = 'none';
-  clearInterval(window._typeInterval);
-  document.getElementById('countdown').style.display = 'none';
-}
+  let lastTap = 0;
+  document.getElementById('linkedinBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    const now = Date.now();
+    if (now - lastTap < 350) document.getElementById('typeModal').style.display = 'flex';
+    lastTap = now;
+  });
 
-function startTyping() {
-  const text = document.getElementById('typeText').value;
-  const wpm = parseInt(document.getElementById('wpmInput').value) || 60;
-  if (!text) return;
+  function closeModal() {
+    document.getElementById('typeModal').style.display = 'none';
+    clearInterval(window._typeInterval);
+    document.getElementById('countdown').style.display = 'none';
+  }
 
-  const msPerChar = (60 / (wpm * 5)) * 1000;
-  const countdown = document.getElementById('countdown');
-  countdown.style.display = 'block';
+  function startTyping() {
+    const text = document.getElementById('typeText').value;
+    const wpm = parseInt(document.getElementById('wpmInput').value) || 60;
+    if (!text) return;
+    const msPerChar = (60 / (wpm * 5)) * 1000;
+    const countdown = document.getElementById('countdown');
+    countdown.style.display = 'block';
+    let count = 3;
+    countdown.textContent = count;
+    const cd = setInterval(() => {
+      count--;
+      if (count <= 0) {
+        clearInterval(cd);
+        countdown.style.display = 'none';
+        document.getElementById('typeModal').style.display = 'none';
+        editor.value = '';
+        editor.focus();
+        let i = 0;
+        window._typeInterval = setInterval(() => {
+          if (i >= text.length) { clearInterval(window._typeInterval); return; }
+          editor.value += text[i];
+          editor.dispatchEvent(new Event('input'));
+          i++;
+        }, msPerChar);
+      } else {
+        countdown.textContent = count;
+      }
+    }, 1000);
+  }
 
-  let count = 3;
-  countdown.textContent = count;
+  const bottombar = document.querySelector('.bottombar');
+  function adjustForKeyboard() {
+    const viewport = window.visualViewport;
+    if (!viewport) return;
+    const offsetFromBottom = window.innerHeight - viewport.height - viewport.offsetTop;
+    bottombar.style.transform = `translateY(-${Math.max(0, offsetFromBottom)}px)`;
+  }
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', adjustForKeyboard);
+    window.visualViewport.addEventListener('scroll', adjustForKeyboard);
+  }
 
-  const cd = setInterval(() => {
-    count--;
-    if (count <= 0) {
-      clearInterval(cd);
-      countdown.style.display = 'none';
-      document.getElementById('typeModal').style.display = 'none';
-      editor.value = '';
-      editor.focus();
+  function deleteText() {
+    editor.value = '';
+    wordCount.textContent = 0;
+    charCount.textContent = 0;
+  }
 
-      let i = 0;
-      window._typeInterval = setInterval(() => {
-        if (i >= text.length) {
-          clearInterval(window._typeInterval);
-          return;
-        }
-        editor.value += text[i];
-        editor.dispatchEvent(new Event('input'));
-        i++;
-      }, msPerChar);
+  function copyText() {
+    navigator.clipboard.writeText(editor.value);
+  }
 
-    } else {
-      countdown.textContent = count;
-    }
-  }, 1000);
-}
-
-const bottombar = document.querySelector('.bottombar');
-
-function adjustForKeyboard() {
-  const viewport = window.visualViewport;
-  if (!viewport) return;
-  const offsetFromBottom = window.innerHeight - viewport.height - viewport.offsetTop;
-  bottombar.style.transform = `translateY(-${Math.max(0, offsetFromBottom)}px)`;
-}
-
-if (window.visualViewport) {
-  window.visualViewport.addEventListener('resize', adjustForKeyboard);
-  window.visualViewport.addEventListener('scroll', adjustForKeyboard);
-}
-
-function deleteText() {
-  editor.value = '';
-  wordCount.textContent = 0;
-  charCount.textContent = 0;
-}
-
-function copyText() {
-  navigator.clipboard.writeText(editor.value);
-}
-
-async function pasteText() {
-  try {
-    const text = await navigator.clipboard.readText();
-    editor.value += text;
-    editor.dispatchEvent(new Event('input'));
-  } catch(e) {}
-}
+  async function pasteText() {
+    try {
+      const text = await navigator.clipboard.readText();
+      editor.value += text;
+      editor.dispatchEvent(new Event('input'));
+    } catch(e) {}
+  }
 </script>
 
 </body>
